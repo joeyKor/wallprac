@@ -23,11 +23,49 @@ class WallPost extends StatefulWidget {
 class _WallPostState extends State<WallPost> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   bool isLiked = false;
+
+  final _commentTextController = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     isLiked = widget.likes.contains(currentUser.email);
+  }
+
+  void addCommnet(String commentText) {
+    FirebaseFirestore.instance
+        .collection('User Posts')
+        .doc(widget.postId)
+        .collection("Comments")
+        .add({
+      "CommentText": commentText,
+      "CommentedBy": currentUser.email,
+      "CommentTime": Timestamp.now() // remember to formatn this when displaying
+    });
+  }
+
+  void showCommnetDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("add commnet"),
+        content: TextField(
+          controller: _commentTextController,
+          decoration: const InputDecoration(hintText: "Write a comment"),
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => addCommnet(_commentTextController.text),
+              child: const Text("Post")),
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'))
+        ],
+      ),
+    );
   }
 
   void toggleLIkes() {

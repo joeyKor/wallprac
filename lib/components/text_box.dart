@@ -22,7 +22,10 @@ class MyTextBox extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(sectionName),
+            Text(
+              sectionName,
+              style: TextStyle(color: Colors.grey[600]),
+            ),
             IconButton(
               onPressed: onPressed,
               icon: const Icon(Icons.settings),
