@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "917491040452",
+    "project_id": "sedu-flutter-0001",
+    "storage_bucket": "sedu-flutter-0001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917491040452:android:49270cee39bc2d2b780991",
+        "android_client_info": {
+          "package_name": "com.sedu.calcu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917491040452-jkoqph5qaq25r4cl79ss65q4v4vaj6d3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPLLunhvRfAuz1aNbVQJ8nWOM0vWbSqgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917491040452-jkoqph5qaq25r4cl79ss65q4v4vaj6d3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "917491040452-e9shl79ma6b224kmjvi5uo5lfq3o13vh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sedu.moneyChange"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917491040452:android:63d995e8f37813e3780991",
+        "android_client_info": {
+          "package_name": "com.sedu.wallapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917491040452-jkoqph5qaq25r4cl79ss65q4v4vaj6d3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPLLunhvRfAuz1aNbVQJ8nWOM0vWbSqgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917491040452-jkoqph5qaq25r4cl79ss65q4v4vaj6d3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "917491040452-e9shl79ma6b224kmjvi5uo5lfq3o13vh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sedu.moneyChange"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
