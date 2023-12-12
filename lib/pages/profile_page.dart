@@ -34,7 +34,11 @@ class _ProfilePageState extends State<ProfilePage> {
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey[700]),
             ),
-            const MyTextBox(text: 'BIo', sectionName: 'Samsung BIo'),
+            MyTextBox(
+              text: 'BIo',
+              sectionName: 'Samsung BIo',
+              onPressed: () {},
+            ),
           ],
         ));
   }
