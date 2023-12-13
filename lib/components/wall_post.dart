@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wallapp/components/comment.dart';
+import 'package:wallapp/components/comment_button.dart';
 import 'package:wallapp/components/like_button.dart';
+import 'package:wallapp/help/helper_methods.dart';
 
 class WallPost extends StatefulWidget {
   final String message;
@@ -43,6 +46,9 @@ class _WallPostState extends State<WallPost> {
       "CommentedBy": currentUser.email,
       "CommentTime": Timestamp.now() // remember to formatn this when displaying
     });
+
+    _commentTextController.clear();
+    Navigator.pop(context);
   }
 
   void showCommnetDialog() {
@@ -93,36 +99,73 @@ class _WallPostState extends State<WallPost> {
       decoration: BoxDecoration(color: Colors.deepOrange[100]),
       margin: const EdgeInsets.only(top: 25, left: 25, right: 25),
       padding: const EdgeInsets.all(20),
-      child: Row(
+      child: Column(
         children: [
-          Column(
+          Row(
             children: [
-              LikeButton(isLiked: isLiked, onTap: toggleLIkes),
-              Text(widget.likes.length.toString())
-            ],
-          ),
-          // Container(
-          //   decoration:
-          //       BoxDecoration(shape: BoxShape.circle, color: Colors.grey[400]),
-          //   padding: const EdgeInsets.all(10),
-          //   child: const Icon(
-          //     Icons.person,
-          //     color: Colors.white,
-          //   ),
-          // ),
-          const SizedBox(
-            width: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.message,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  LikeButton(isLiked: isLiked, onTap: toggleLIkes),
+                  Text(widget.likes.length.toString())
+                ],
               ),
-              Text(widget.user)
+              // Container(
+              //   decoration:
+              //       BoxDecoration(shape: BoxShape.circle, color: Colors.grey[400]),
+              //   padding: const EdgeInsets.all(10),
+              //   child: const Icon(
+              //     Icons.person,
+              //     color: Colors.white,
+              //   ),
+              // ),
+              const SizedBox(
+                width: 20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.message,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(widget.user)
+                ],
+              ),
+              Column(
+                children: [
+                  CommentButton(onTap: () {
+                    showCommnetDialog();
+                  }),
+                  Text(widget.likes.length.toString())
+                ],
+              ),
             ],
           ),
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('User Posts')
+                  .doc(widget.postId)
+                  .collection('Comments')
+                  .orderBy("CommentTime", descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: snapshot.data!.docs.map((doc) {
+                    final commentData = doc.data() as Map<String, dynamic>;
+                    return Comment(
+                        text: commentData['CommentText'],
+                        time: formatData(commentData['CommentTime']),
+                        user: commentData['CommentedBy']);
+                  }).toList(),
+                );
+              })
         ],
       ),
     );
